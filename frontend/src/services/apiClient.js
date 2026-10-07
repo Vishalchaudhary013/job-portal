@@ -5,7 +5,7 @@ const isLocalHost =
   isBrowser && ["localhost", "127.0.0.1"].includes(window.location.hostname);
 const fallbackBaseURL = isLocalHost
   ? "http://localhost:3001"
-  : "https://career-services-85ue.onrender.com";
+  : "https://job-portal-9eb7.onrender.com";
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_CAREER_SERVICES || fallbackBaseURL;
