@@ -24,6 +24,7 @@ import {
 import logo from "../../assets/logo.png";
 import { getCustomCategories } from "../../services/customCategoryAPI";
 import { DEFAULT_JOB_CATEGORIES, DEFAULT_JOB_CITIES } from "../../features/job/utils/jobCategories";
+// import { CmsDesktopNavLink, CmsMobileNavLinks } from "../../features/cms/CmsNavLinks";
 
 // Both dropdowns land on the jobs listing with one filter pre-applied. The query
 // keys are the listing's own (see backend/utils/opportunityFilterQuery.js):
@@ -374,6 +375,9 @@ const NavBar = () => {
                   </NavLink>
                 ),
               )}
+              {/* Explore menu removed — Form Builder jobs appear in the normal Jobs pages.
+              <CmsDesktopNavLink />
+              */}
             </nav>
 
             {/* RIGHT: auth actions */}
@@ -533,6 +537,9 @@ const NavBar = () => {
                   </Link>
                 ),
               )}
+              {/* Explore menu removed — Form Builder jobs appear in the normal Jobs pages.
+              <CmsMobileNavLinks onNavigate={() => setMobileMenuOpen(false)} />
+              */}
             </div>
           )}
         </header>

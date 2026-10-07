@@ -6,7 +6,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "sync:cms-shared": "node scripts/sync-cms-shared.mjs",
+    "check:cms-shared": "node scripts/sync-cms-shared.mjs --check"
   },
   "dependencies": {
     "axios": "^1.18.0",

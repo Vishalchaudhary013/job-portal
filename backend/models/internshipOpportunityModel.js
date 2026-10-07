@@ -97,6 +97,12 @@ const internshipOpportunitySchema = new mongoose.Schema(
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, index: true },
     formId: { type: mongoose.Schema.Types.ObjectId, ref: "Form", default: null },
     submissionIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Application" }],
+    // Job type shown on cards and used by the /jobs "Job Type" filter.
+    jobType: { type: String, default: "", trim: true },
+    // Records published from the Form Builder are kept in sync by
+    // services/formBuilderOpportunitySync.js; cmsContentId links back to the entry.
+    source: { type: String, default: "admin", trim: true },
+    cmsContentId: { type: String, default: null, index: true },
   },
   {
     timestamps: true,

@@ -12,7 +12,13 @@ const App = () => {
   const isAdminRoute =
     location.pathname.startsWith("/admin-dashboard") ||
     location.pathname.startsWith("/super-admin-dashboard");
-  const showNavBar = !hideLayout.includes(location.pathname) && !isAdminRoute;
+  // The Form Builder has its own shell; the CMS preview page draws the
+  // navbar/footer itself only when previewing a full detail page.
+  const isCmsShellRoute =
+    location.pathname.startsWith("/form-builder") ||
+    location.pathname === "/cms-preview";
+  // const showNavBar = !hideLayout.includes(location.pathname) && !isAdminRoute;
+  const showNavBar = !hideLayout.includes(location.pathname) && !isAdminRoute && !isCmsShellRoute;
 
   // Google Translate host + bootstrap (same as the main Edeco app) — kept here
   // so it stays mounted while NavBar swaps between its route-specific layouts.

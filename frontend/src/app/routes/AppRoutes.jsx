@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import CareerServicesPage from "../../features/career-services/pages/CareerServicesPage";
@@ -18,6 +18,21 @@ import AdminOpportunityFormPage from "../../features/admin/pages/AdminOpportunit
 import ApplicationFormBuilderPage from "../../features/form-builder/pages/ApplicationFormBuilderPage";
 import SuperAdminDashboard from "../../features/superadmin/pages/SuperAdminDashboard";
 import NotFound from "../../pages/NotFound";
+
+// Form Builder (CMS). Loaded on demand so the public site's bundle doesn't
+// carry the builder. Dynamic content pages are driven entirely by what admins
+// publish in the Form Builder.
+const FormBuilderStudio = lazy(() => import("../../features/cms/studio/StudioApp"));
+const CmsIndexPage = lazy(() => import("../../features/cms/pages/CmsIndexPage"));
+const CmsListingPage = lazy(() => import("../../features/cms/pages/CmsListingPage"));
+const CmsDetailPage = lazy(() => import("../../features/cms/pages/CmsDetailPage"));
+const CmsPreviewPage = lazy(() => import("../../features/cms/pages/CmsPreviewPage"));
+
+const PageFallback = () => (
+  <div className="flex justify-center items-center min-h-[60vh]">
+    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#1F2853]"></div>
+  </div>
+);
 
 // Career Services portal — same paths as the main Edeco app so copied pages
 // and links work unchanged. Anything not listed falls through to NotFound,
@@ -63,6 +78,17 @@ const AppRoutes = () => {
         <Route path="/super-admin-dashboard/edit-opportunity/:id" element={<AdminOpportunityFormPage />} />
         <Route path="/super-admin-dashboard/build-form/:id" element={<ApplicationFormBuilderPage />} />
       </Route>
+
+      {/* Form Builder — same login and roles as the dashboards above. */}
+      <Route element={<ProtectedRoute allowedRoles={["admin", "super_admin"]} />}>
+        <Route path="/form-builder/*" element={<Suspense fallback={<PageFallback />}><FormBuilderStudio /></Suspense>} />
+      </Route>
+
+      {/* Dynamic content published from the Form Builder. */}
+      <Route path="/explore" element={<Suspense fallback={<PageFallback />}><CmsIndexPage /></Suspense>} />
+      <Route path="/explore/:typeSlug" element={<Suspense fallback={<PageFallback />}><CmsListingPage /></Suspense>} />
+      <Route path="/explore/:typeSlug/:entrySlug" element={<Suspense fallback={<PageFallback />}><CmsDetailPage /></Suspense>} />
+      <Route path="/cms-preview" element={<Suspense fallback={<PageFallback />}><CmsPreviewPage /></Suspense>} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>

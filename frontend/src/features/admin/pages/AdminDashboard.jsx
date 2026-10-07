@@ -4,6 +4,7 @@ import ApplicationsTable from "../components/ApplicationsTable";
 import OpportunitiesTable from "../components/OpportunitiesTable";
 import OpportunityForm from "../components/OpportunityForm";
 import OverviewStats from "../../superadmin/components/OverviewStats";
+import FormBuilderDashboardCard from "../../cms/FormBuilderDashboardCard";
 import PostOpportunity from "../../superadmin/components/PostOpportunity";
 import LocationManager from "../../superadmin/components/LocationManager";
 import GalleryManager from "../../superadmin/components/GalleryManager";
@@ -232,6 +233,7 @@ const AdminDashboardContent = () => {
               )}
 
               <OverviewStats />
+              {activeSection === "Overview" && <FormBuilderDashboardCard />}
               <PostOpportunity />
 
               {error && (

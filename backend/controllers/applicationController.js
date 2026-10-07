@@ -66,12 +66,16 @@ const resumesByApplicantEmail = async (applications, req) => {
   return out;
 };
 
+const INTERNSHIP_COLLECTION_TYPES = ["Internship", "Jobs", "Apprenticeships"];
+
 const findOpportunityByTypeAndId = async (opportunityType, opportunityId) => {
   if (!opportunityId) {
     return null;
   }
 
-  if (opportunityType === "Internship") {
+  // Jobs and Apprenticeships live in the same collection as Internships.
+  // if (opportunityType === "Internship") {
+  if (INTERNSHIP_COLLECTION_TYPES.includes(opportunityType)) {
     return InternshipOpportunity.findById(opportunityId)
       .select("_id title company type createdBy")
       .populate("createdBy", "_id fullName email role whatsappNumber");
@@ -183,16 +187,29 @@ export const submitApplication = async (req, res, next) => {
     const application = await Application.create({
       ...payload,
       opportunity: opportunityId,
-      resume: {
-        fileName: req.file.originalname,
-        filePath: `/uploads/resumes/${req.file.filename}`,
-        mimeType: req.file.mimetype,
-        size: req.file.size,
-      },
+      // resume: {
+      //   fileName: req.file.originalname,
+      //   filePath: `/uploads/resumes/${req.file.filename}`,
+      //   mimeType: req.file.mimetype,
+      //   size: req.file.size,
+      // },
+      // Resume is optional (see the commented-out check above), so only
+      // record it when one was uploaded.
+      ...(req.file
+        ? {
+            resume: {
+              fileName: req.file.originalname,
+              filePath: `/uploads/resumes/${req.file.filename}`,
+              mimeType: req.file.mimetype,
+              size: req.file.size,
+            },
+          }
+        : {}),
     });
 
     if (opportunityId) {
-      if (payload.opportunityType === "Internship") {
+      // if (payload.opportunityType === "Internship") {
+      if (INTERNSHIP_COLLECTION_TYPES.includes(payload.opportunityType)) {
         await InternshipOpportunity.findByIdAndUpdate(opportunityId, {
           $push: { submissionIds: application._id }
         });

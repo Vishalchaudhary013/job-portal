@@ -19,6 +19,7 @@ import {
 import { useAdminContext } from "../context/AdminContext";
 import { LayoutPanelLeft, LocateIcon, Image as ImageIcon, GraduationCap } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 // Career Services portal: same sidebar as Edeco, trimmed to the shared
 // Overview / Admins / Users tabs + the Career Drive tabs. (Portal-only edit —
@@ -297,6 +298,16 @@ const AdminSidebar = () => {
       </div>
 
       <div className="mt-auto pt-4 border-t border-[#EEF2FF] space-y-2">
+        {/* Form Builder lives in its own screen (/form-builder); same login. */}
+        {dashboardType !== "mentor" && (
+          <Link
+            to="/form-builder"
+            className="w-full px-3 py-2 text-sm font-semibold text-white rounded-sm bg-[#1F2853] hover:bg-[#2a3670] flex items-center justify-center xl:justify-start gap-2"
+          >
+            <FiLayout size={15} />
+            Form Builder
+          </Link>
+        )}
         <button
           type="button"
           onClick={handleLogout}

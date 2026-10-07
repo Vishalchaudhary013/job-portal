@@ -125,7 +125,9 @@ const resolveLogoUrl = (logo) => {
   return raw;
 };
 
-const mapOpportunityFromApi = (item) => ({
+// Exported so the Form Builder preview can shape a draft job exactly like
+// the jobs this context loads.
+export const mapOpportunityFromApi = (item) => ({
   ...item,
   id: item._id || item.id,
   createdBy: item.createdBy || item.mentorId,
@@ -615,7 +617,11 @@ export const OpportunitiesProvider = ({ children }) => {
     if (payload.opportunityId) {
       formData.append("opportunityId", payload.opportunityId);
     }
-    formData.append("resume", payload.resumeFile);
+    // formData.append("resume", payload.resumeFile);
+    // Resume is optional; appending null would send the text "null".
+    if (payload.resumeFile) {
+      formData.append("resume", payload.resumeFile);
+    }
 
     return applicationAPI.submitApplication(formData);
   };

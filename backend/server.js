@@ -16,6 +16,11 @@ import templateRoutes from "./formBuilder/routes/templateRoutes.js";
 import submissionRoutes from "./formBuilder/routes/submissionRoutes.js";
 import customCategoryRoutes from "./routers/customCategoryRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
+// Form Builder (CMS) — schema-driven content, cards, detail pages and response
+// forms. Runs in this same server; see backend/cms/index.js.
+import { mountCms, mountCmsWebhookReceiver, startCms } from "./cms/index.js";
+// Lists Form Builder jobs on Edeco's own job pages (opt-in per content type).
+import { startFormBuilderOpportunitySync } from "./services/formBuilderOpportunitySync.js";
 
 // Career Services portal backend — a trimmed copy of the Edeco backend/.
 // Controllers, models, middleware and services are verbatim copies; only this
@@ -49,6 +54,8 @@ app.use(
     ],
   }),
 );
+// Needs the raw request body for signature checks, so it goes before express.json().
+mountCmsWebhookReceiver(app);
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true, limit: "2mb" }));
 
@@ -99,6 +106,11 @@ app.use("/api/forms", formRoutes);
 app.use("/api/templates", templateRoutes);
 app.use("/api/submissions", submissionRoutes);
 app.use("/api/custom-categories", customCategoryRoutes);
+// Form Builder: /api/cms/admin (builder UI), /api/cms/public (portal pages),
+// /api/cms/v1 (API-key server-to-server).
+mountCms(app);
+startCms();
+startFormBuilderOpportunitySync();
 
 // The copied OpportunitiesContext also lists master classes and bootcamps on
 // boot. Those sections aren't part of this portal, so answer with empty lists

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LuMapPin, LuChevronDown, LuSearch, LuBriefcase, LuUsers, LuBuilding2 } from "react-icons/lu";
 import OpportunitySuggestField from "./OpportunitySuggestField";
+import CountUp from "../../../components/common/CountUp";
 import logo1 from "../../../assets/logos/logo1.png";
 import logo2 from "../../../assets/logos/logo2.png";
 import logo3 from "../../../assets/logos/logo3.png";
@@ -36,7 +37,10 @@ const STATS = [
 const LOGOS = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8];
 
 // Served from /public, so referenced by URL rather than imported.
-const HERO_PHOTO = "/hero_students.png";
+// A row of Indian workers drawn from the trades this portal actually lists —
+// delivery, technician, nursing, teaching, warehouse, office — rather than the
+// campus photo this used to carry, which belonged to the degrees side.
+const HERO_PHOTO = "/hero_indian_workforce.png";
 
 const CareerServicesHero = () => {
   const navigate = useNavigate();
@@ -45,6 +49,36 @@ const CareerServicesHero = () => {
   const [location, setLocation] = useState("");
 
   const selectedCategory = CATEGORIES.find((c) => c.value === category) ?? CATEGORIES[0];
+
+  // One observer for the whole stat row rather than one per number, flipped
+  // once and then disconnected: the count is an entrance effect, so scrolling
+  // the row back into view must not replay it. The empty dependency list is
+  // what keeps re-renders (every keystroke in the search fields causes one)
+  // from re-running this at all.
+  const statsRef = useRef(null);
+  const [statsInView, setStatsInView] = useState(false);
+
+  useEffect(() => {
+    const el = statsRef.current;
+    if (!el) return undefined;
+    if (typeof IntersectionObserver === "undefined") {
+      setStatsInView(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setStatsInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -68,7 +102,7 @@ const CareerServicesHero = () => {
         src={HERO_PHOTO}
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 -z-20 h-full w-full object-cover object-[center_35%]"
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-[center_45%]"
       />
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-primary/75" />
       <div
@@ -137,7 +171,7 @@ const CareerServicesHero = () => {
           </button>
         </form>
 
-        <ul className="mt-14 flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-20">
+        <ul ref={statsRef} className="mt-14 flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-20">
           {STATS.map((stat) => {
             const Icon = stat.icon;
             return (
@@ -146,7 +180,9 @@ const CareerServicesHero = () => {
                   <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
                 </span>
                 <span>
-                  <span className="block text-[24px] font-extrabold leading-none text-white sm:text-[30px]">{stat.value}</span>
+                  <span className="block text-[24px] font-extrabold leading-none text-white sm:text-[30px]">
+                    <CountUp value={stat.value} active={statsInView} />
+                  </span>
                   <span className="mt-1.5 block text-[14px] text-white/75 sm:text-[16px]">{stat.label}</span>
                 </span>
               </li>

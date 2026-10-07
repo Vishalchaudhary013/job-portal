@@ -10,6 +10,26 @@ import { startApplyResumeHandoff } from "../../resume-builder/utils/formResumeHa
 import Icons from "../../form-builder/ui/ui-icons";
 import ImageCarousel from "../../form-builder/ui/image-carousel";
 
+// Fields of the standard Edeco application, shown when the opportunity has no
+// Form Builder form attached (e.g. jobs synced from the Form Builder CMS).
+// Keys match what POST /api/applications reads.
+const LEGACY_FIELDS = [
+  { name: "name", label: "Full name", type: "text", required: true, autoComplete: "name", half: true },
+  { name: "email", label: "Email", type: "email", required: true, autoComplete: "email", half: true },
+  { name: "phone", label: "Phone", type: "tel", required: true, autoComplete: "tel", half: true },
+  { name: "college", label: "College / university", type: "text", half: true },
+  { name: "degree", label: "Degree", type: "text", half: true },
+  { name: "year", label: "Year of study / graduation", type: "text", half: true },
+  { name: "skills", label: "Skills", type: "text", placeholder: "e.g. React, SQL, Excel" },
+  { name: "experience", label: "Experience", type: "textarea", placeholder: "Internships, jobs or projects" },
+  { name: "portfolio", label: "Portfolio link", type: "url", half: true },
+  { name: "linkedin", label: "LinkedIn profile", type: "url", half: true },
+  { name: "whySelectYou", label: "Why should we select you?", type: "textarea" },
+];
+
+const LEGACY_INPUT_CLASS =
+  "w-full rounded-sm border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#1F2853] focus:outline-none";
+
 const ApplicationFormModal = ({
   isOpen,
   onClose,
@@ -377,6 +397,57 @@ const ApplicationFormModal = ({
                                 </div>
                               </div>
                             ))}
+                        </div>
+                      )}
+
+                      {/* No Form Builder form attached: standard Edeco application */}
+                      {!dynamicForm && (
+                        <div className="grid grid-cols-12 gap-x-6 gap-y-6">
+                          {LEGACY_FIELDS.map((field) => (
+                            <div key={field.name} className={field.half ? "col-span-12 md:col-span-6" : "col-span-12"}>
+                              <label htmlFor={`apply-${field.name}`} className="block text-sm font-semibold text-slate-700 mb-1.5">
+                                {field.label}
+                                {field.required && <span className="text-rose-500 ml-1">*</span>}
+                              </label>
+                              {field.type === "textarea" ? (
+                                <textarea
+                                  id={`apply-${field.name}`}
+                                  name={field.name}
+                                  rows={4}
+                                  value={legacyForm[field.name]}
+                                  onChange={handleLegacyInputChange}
+                                  placeholder={field.placeholder}
+                                  required={field.required}
+                                  className={LEGACY_INPUT_CLASS}
+                                />
+                              ) : (
+                                <input
+                                  id={`apply-${field.name}`}
+                                  name={field.name}
+                                  type={field.type}
+                                  value={legacyForm[field.name]}
+                                  onChange={handleLegacyInputChange}
+                                  placeholder={field.placeholder}
+                                  autoComplete={field.autoComplete}
+                                  required={field.required}
+                                  className={LEGACY_INPUT_CLASS}
+                                />
+                              )}
+                            </div>
+                          ))}
+                          <div className="col-span-12">
+                            <label htmlFor="apply-resume" className="block text-sm font-semibold text-slate-700 mb-1.5">
+                              Resume (PDF)
+                            </label>
+                            <input
+                              id="apply-resume"
+                              type="file"
+                              accept="application/pdf,.pdf"
+                              onChange={handleResumeChange}
+                              className="block w-full text-sm text-slate-700 file:mr-4 file:rounded-sm file:border-0 file:bg-slate-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-slate-700 hover:file:bg-slate-200"
+                            />
+                            {resumeFile && <p className="mt-1.5 text-xs text-slate-500">{resumeFile.name}</p>}
+                          </div>
                         </div>
                       )}
 
