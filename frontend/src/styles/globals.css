@@ -1,0 +1,618 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Outfit:wght@100..900&family=Prata&display=swap');
+/* Resume Builder font picker — faces download only when a font is actually applied. */
+@import url('https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Bitter:wght@400;600;700&family=Crimson+Text:wght@400;600;700&family=DM+Sans:wght@400;500;700&family=EB+Garamond:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Karla:wght@400;600;700&family=Lato:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Lora:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Mulish:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&family=Open+Sans:wght@400;600;700&family=PT+Serif:wght@400;700&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto+Slab:wght@400;500;700&family=Roboto:wght@400;500;700&family=Rubik:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&family=Zilla+Slab:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+body {
+  font-family: 'Google Sans', sans-serif !important;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Material Symbols icon font — link is in index.html; this is the required
+   rendering setup (without it the ligature names show as literal text). */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* @font-face {
+  font-family: "Pin Sans";
+  src: url("/fonts/PinSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Pin Sans";
+  src: url("/fonts/PinSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+}
+
+body {
+  font-family: "Pin Sans", sans-serif;
+} */
+
+/* @import "tailwindcss"; */
+
+@theme {
+  /* Project Primary Color - Deep Navy Blue */
+  --color-primary:   #1F2853;
+  --color-blue-700:  #1F2853;
+
+  /* Project Secondary Color - Coral Red */
+  --color-secondary: #FF4E45;
+  --color-red-600:   #FF4E45;
+}
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+	display: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE & Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+
+select option:hover,
+select option:focus {
+  background-color: #22BE74 !important; /* green */
+  color: white !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-right {
+  animation: slideRight 40s linear infinite;
+  will-change: transform;
+}
+
+.animate-left {
+  animation: slideLeft 40s linear infinite;
+  will-change: transform;
+}
+
+/* ===============================
+   EDECO – SCHBANG STYLE ROTATOR
+   =============================== */
+
+/* .edeco-rotator {
+  position: relative;
+  height: 26px;
+  overflow: hidden;
+}
+
+.edeco-rotator-inner {
+  display: flex;
+  flex-direction: column;
+  animation: edecoSlide 10s ease-in-out infinite;
+}
+
+.edeco-rotator-inner > div {
+  
+  height: 26.5px;
+  line-height: 31px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #000;
+  white-space: nowrap;
+} */
+
+
+/*
+  KEY IDEA (Schbang logic):
+  - last word pe animation HOLD hoti hai
+  - phir animation reset hoti hai
+  - reset ke moment me thoda "nothing"
+*/
+
+@keyframes edecoSlide {
+  /* Internships */
+  0%   { transform: translateY(0); }
+  15%  { transform: translateY(0); }
+
+  /* Jobs */
+  20%  { transform: translateY(-26px); }
+  35%  { transform: translateY(-26px); }
+
+  /* Eduversity */
+  40%  { transform: translateY(-52px); }
+  55%  { transform: translateY(-52px); }
+
+  /* Global */
+  60%  { transform: translateY(-78px); }
+  72%  { transform: translateY(-78px); }
+
+  /* Innovations */
+  76%  { transform: translateY(-104px); }
+  86%  { transform: translateY(-104px); }
+
+  /* Events (LAST WORD – HOLD) */
+  90%  { transform: translateY(-130px); }
+  100% { transform: translateY(-130px); }
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* --- Google Translate Customization --- */
+
+/* Fully hide the "Select Language" widget from the navbar. Google's script
+   re-asserts inline styles on this element after init, so this has to stay
+   !important to reliably win against that. Translation is still driven
+   programmatically via the hidden .goog-te-combo select (see changeLanguage
+   in NavBar.jsx), so hiding the widget doesn't break language switching. */
+#google_translate_element,
+#google_translate_element * {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Hide the top translation banner that pushes the page down */
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+/* Belt-and-suspenders: if Google ever renders the "Select Language" gadget
+   outside #google_translate_element (it can leak there if its host unmounts
+   mid-init), keep it hidden wherever it lands. */
+.goog-te-gadget-simple,
+.skiptranslate .goog-te-gadget-simple {
+    display: none !important;
+}
+
+.skiptranslate > iframe.skiptranslate {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Hide the tooltip that shows original text */
+#goog-gt-tt, .goog-te-balloon-frame {
+    display: none !important;
+}
+
+.goog-text-highlight {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Fix body shifting down by the top banner */
+body {
+    top: 0px !important;
+    position: static !important;
+}
+
+/* Hide the Google logo, "Powered by" text, and any extra elements */
+.goog-te-gadget {
+    font-size: 0px !important;
+    color: transparent !important;
+    display: flex !important;
+    align-items: center;
+}
+
+.goog-te-gadget .goog-logo-link {
+    display: none !important;
+}
+
+.goog-te-gadget img {
+    display: none !important;
+}
+
+/* Style the actual dropdown select element */
+.translate-widget-wrapper .goog-te-combo {
+    padding: 6px 12px !important;
+    border-radius: 9999px !important;
+    border: 1px solid #1F2853 !important;
+    font-size: 13px !important;
+    outline: none !important;
+    background-color: #1F2853 !important;
+    color: #ffffff !important;
+    cursor: pointer !important;
+    margin: 0 !important;
+    height: 36px !important;
+    font-family: inherit !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease-in-out !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%239CA3AF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 10px top 50% !important;
+    background-size: 10px auto !important;
+    padding-right: 28px !important;
+}
+
+.translate-widget-wrapper .goog-te-combo:hover {
+    background-color: #F8FAFC !important;
+    border-color: #E2E8F0 !important;
+}
+
+.translate-widget-wrapper .goog-te-combo:focus {
+    border-color: #1F2853 !important;
+    box-shadow: 0 0 0 2px rgba(31, 40, 83, 0.2) !important;
+}
+
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+@media (min-width: 768px) {
+  .hero-slider-transform {
+    transform: var(--slider-transform);
+  }
+}
+
+/* 
+
+
+   Document design layer (Resume Builder + Cover Letter Builder "Customize" tab).
+
+   The documents are written with ordinary Tailwind classes; these rules let the
+   Customize panel override the handful of things it owns — type scale, weights,
+   fonts, accent colour, page margins and the gaps between sections, blocks and
+   lines. The values arrive as CSS custom properties set inline on `.rd-doc` by
+   designToStyle() (features/resume-builder/constants/resumeDesign.js).
+
+   `!important` is deliberate: these have to beat the utility class already on
+   the element, and every rule is scoped inside `.rd-doc` so nothing else on the
+   page is affected.
+    */
+.rd-doc {
+  font-size: var(--rd-size-body);
+  line-height: var(--rd-line-height);
+}
+.rd-doc [data-rd="name"] {
+  font-size: var(--rd-size-name) !important;
+  font-weight: var(--rd-weight-name) !important;
+  font-family: var(--rd-font-heading, inherit);
+}
+.rd-doc [data-rd="title"] {
+  font-size: var(--rd-size-title) !important;
+  font-weight: var(--rd-weight-title) !important;
+  font-family: var(--rd-font-heading, inherit);
+}
+.rd-doc [data-rd="section-title"] {
+  font-size: var(--rd-size-section) !important;
+  font-weight: var(--rd-weight-section) !important;
+  font-family: var(--rd-font-heading, inherit);
+  margin-bottom: var(--rd-gap-title) !important;
+}
+/* Body text and the three sizes that hang off it, so the Body slider moves the
+   whole run of copy rather than one paragraph. */
+.rd-doc [data-rd="body"] {
+  font-size: var(--rd-size-body) !important;
+  font-weight: var(--rd-weight-body);
+}
+.rd-doc [data-rd="entry-title"] {
+  font-size: calc(var(--rd-size-body) * 1.08) !important;
+}
+.rd-doc [data-rd="entry-sub"] {
+  font-size: calc(var(--rd-size-body) * 0.97) !important;
+}
+.rd-doc [data-rd="meta"] {
+  font-size: calc(var(--rd-size-body) * 0.9) !important;
+}
+.rd-doc [data-rd="entry-title"],
+.rd-doc [data-rd="entry-sub"],
+.rd-doc [data-rd="meta"] {
+  line-height: var(--rd-line-height) !important;
+}
+/* Running copy — the summary paragraph, bullet lines, the cover letter's body —
+   gets its own leading, since that is what a reader actually notices. Listed
+   after the rule above so it wins for elements carrying both. */
+.rd-doc [data-rd="body"] {
+  line-height: var(--rd-line-height-body, var(--rd-line-height)) !important;
+}
+
+/* Accent colour — templates mark the elements that should follow "Main color". */
+.rd-doc [data-rd-accent="bg"] {
+  background-color: var(--rd-accent) !important;
+}
+.rd-doc [data-rd-accent="text"] {
+  color: var(--rd-accent) !important;
+}
+.rd-doc [data-rd-accent="border"] {
+  border-color: var(--rd-accent) !important;
+}
+
+/* Page margins. The header keeps its own top/bottom so "Header & Footer" can be
+   tuned independently of the body's "Top & bottom". */
+.rd-doc .rd-pad-x {
+  padding-left: var(--rd-pad-inline) !important;
+  padding-right: var(--rd-pad-inline) !important;
+}
+.rd-doc .rd-pad-header {
+  padding-top: var(--rd-pad-header) !important;
+  padding-bottom: var(--rd-pad-header) !important;
+}
+.rd-doc .rd-pad-body {
+  padding-bottom: var(--rd-pad-block) !important;
+}
+.rd-doc .rd-pad-body-top {
+  padding-top: var(--rd-pad-block) !important;
+}
+
+/* Rhythm: between sections, between the blocks inside a section, and between the
+   lines inside one block. */
+.rd-doc .rd-sections > * + * {
+  margin-top: var(--rd-gap-section) !important;
+}
+.rd-doc .rd-blocks > * + * {
+  margin-top: var(--rd-gap-block) !important;
+}
+.rd-doc .rd-inner > * + * {
+  margin-top: var(--rd-gap-inner) !important;
+}
+/* The description/bullets sitting under an entry's heading — same control as the
+   spacing between the bullets themselves. */
+.rd-doc .rd-block-body {
+  margin-top: var(--rd-gap-inner) !important;
+}
+
+/* Rich-text description/summary/cover-letter body content — real HTML from
+   RichTextField (lists/links), styled to match the resume's previous manual
+   bullet-dot look instead of the browser's default disc/decimal markers. */
+.rd-doc .rd-html ul,
+.rd-doc .rd-html ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.rd-doc .rd-html ul > li,
+.rd-doc .rd-html ol > li {
+  position: relative;
+  padding-left: 12px;
+}
+.rd-doc .rd-html ul > li + li,
+.rd-doc .rd-html ol > li + li {
+  margin-top: 3px;
+}
+.rd-doc .rd-html ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: currentColor;
+  opacity: 0.55;
+}
+.rd-doc .rd-html ol {
+  counter-reset: rd-html-ol;
+}
+.rd-doc .rd-html ol > li {
+  counter-increment: rd-html-ol;
+}
+.rd-doc .rd-html ol > li::before {
+  content: counter(rd-html-ol) ".";
+  position: absolute;
+  left: 0;
+  opacity: 0.65;
+}
+.rd-doc .rd-html p + p {
+  margin-top: 0.5em;
+}
+.rd-doc .rd-html a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* Skills laid out in columns rather than as one run-on line. */
+.rd-doc .rd-skill-columns {
+  column-count: var(--rd-skill-columns);
+  column-gap: 18px;
+}
+.rd-doc .rd-skill-columns > * {
+  break-inside: avoid;
+}
+.rd-doc .rd-category-row {
+  display: grid;
+  grid-template-columns: var(--rd-category-width) 1fr;
+  gap: 8px;
+}
+
+/* Builder shell (Resume + Cover Letter).
+
+   From `lg` up the shell fills exactly one viewport: the header is a fixed
+   58px, and the body takes the rest and never grows. That is what keeps the
+   score strip and the step/action bar pinned while only the middle of the
+   editor scrolls — and it keeps the preview pane on its own scrollbar instead
+   of dragging it along with the form.
+
+   Written here rather than as a Tailwind arbitrary value because `calc()`
+   needs whitespace around its operator, which a class name can't carry. */
+.builder-shell-header {
+  height: 58px;
+}
+
+@media (min-width: 1024px) {
+  /* The page itself must not scroll on a builder screen — otherwise dragging the
+     long form on the left carries the document preview on the right along with
+     it. BuilderShell puts `builder-locked` on <html> while it is mounted. */
+  html.builder-locked,
+  html.builder-locked body {
+    height: 100%;
+    overflow: hidden;
+  }
+  .builder-shell {
+    height: 100vh;
+    overflow: hidden;
+  }
+  /* Fills whatever the header spacer leaves. `flex-basis: auto` + `min-height: 0`
+     rather than a height, so it can't fight the flex algorithm. */
+  .builder-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+  }
+}
+
+/* Flat range slider for the builders' Customize panels. */
+.builder-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: #e2e8f0;
+  outline: none;
+}
+.builder-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 2px solid #1f2853;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.builder-range::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+.builder-range::-moz-range-thumb {
+  height: 14px;
+  width: 14px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 2px solid #1f2853;
+  cursor: pointer;
+}
+.builder-range::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: #e2e8f0;
+}
+
+/* Resume Builder print rules ONLY. Everything here is scoped to `.resume-printing`,
+   which the resume preview puts on <html> while it is on screen — unscoped, these hide
+   the whole document and reveal an element that exists on no other page, so every other
+   printable page in the app (shared form templates, etc.) came out blank.
+   The matching `@page { margin: 0 }` can't be scoped by a selector, so the preview
+   injects it instead; other pages keep the browser's default print margins. */
+@media print {
+  .resume-printing body * {
+    visibility: hidden;
+  }
+  .resume-printing #resume-print-area,
+  .resume-printing #resume-print-area * {
+    visibility: visible;
+  }
+  .resume-printing #resume-print-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 210mm;
+    margin: 0;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    transform: scale(var(--resume-print-scale, 1));
+    transform-origin: top left;
+  }
+  /* Section drag handles are an editing affordance only — never printed. */
+  .resume-printing #resume-print-area .resume-drag-handle {
+    display: none !important;
+  }
+  /* Both builders lay the document out at page width and shrink it to fit its
+     pane. That wrapper transform would scale the printout too (and box in the
+     absolutely positioned print area), so it is undone here. */
+  .resume-printing .builder-scaler,
+  .resume-printing .builder-scaler-frame,
+  .cover-letter-printing .builder-scaler,
+  .cover-letter-printing .builder-scaler-frame {
+    transform: none !important;
+    width: auto !important;
+    height: auto !important;
+  }
+  .resume-printing #resume-print-area {
+    min-height: 0 !important;
+  }
+
+  .cover-letter-printing body * {
+    visibility: hidden;
+  }
+  .cover-letter-printing #cover-letter-print-area,
+  .cover-letter-printing #cover-letter-print-area * {
+    visibility: visible;
+  }
+  .cover-letter-printing #cover-letter-print-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 210mm;
+    /* Beats the inline A4 min-height the preview uses at its own page width. */
+    min-height: 0 !important;
+    margin: 0;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    transform: scale(var(--cover-letter-print-scale, 1));
+    transform-origin: top left;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-slider-transform {
+    transform: none !important;
+  }
+}
